@@ -1,6 +1,6 @@
 import React, { use, useEffect, useState } from 'react';
 import Bottle from './Bottle';
-import { addStoreCart, getSoreCart } from '../../utilities/localStorage';
+import { addStoreCart, getSoreCart,removeItems } from '../../utilities/localStorage';
 
 const Bottles = ({ bottlePromise }) => {
     const [cart, setCart] = useState([])
@@ -24,8 +24,8 @@ const Bottles = ({ bottlePromise }) => {
         const newCart = [...cart, bottle]
         setCart(newCart)
         addStoreCart(bottle.id)
-
     }
+    
     return (
         <div>
             <h2 className='text-center pb-4 text-3xl'>Total Bottles: {bottles.length}</h2>
@@ -35,7 +35,7 @@ const Bottles = ({ bottlePromise }) => {
                 {
                     cart.map(add => <li className='mx-auto'><div className='flex gap-2 items-center'>
                         {add.name} <img className='w-12 rounded-md mx-auto' src={add.img}></img>
-                        <p className='bg-red-500 rounded-sm px-1 cursor-pointer'>X</p></div></li>)
+                        <p className='bg-red-500 rounded-sm px-1 cursor-pointer' onClick={()=>removeItems(add.id)}>X</p></div></li>)
                 }
             </ol>
             <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-4'>
